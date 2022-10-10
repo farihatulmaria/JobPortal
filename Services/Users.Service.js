@@ -5,5 +5,11 @@ module.exports.signUpService = async (userInfo)=>{
     return newUser;
 }
 
-module.exports.getUserByEmail = async (email)=> return await Users.findOne({email:email});
-module.exports.getUserByToken = async (token)=> return await Users.findOne({token:token});
+module.exports.getUserByEmail = async (email)=> {
+    const result = await Users.findOne({email:email})
+    return result;
+};
+module.exports.getUserByToken = async (token)=> {
+    const result = await Users.findOne({token:token});
+    return result;
+};

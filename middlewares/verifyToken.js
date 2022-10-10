@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const { promisify } = require("util");
 module.exports.verifyToken = async(req,res,next)=>{
     try {
-        const token = req?.headers?.autorization.split(" ").[1];
+        const token = req?.headers?.autorization.split(" ")[1];
         if(!token){
             res.status(401).json({
                 status:'You shall not pass',

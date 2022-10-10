@@ -38,8 +38,8 @@ const usersSchme = mongoose.Schema({
     },
     role:{
         type:String,
-        enum:['buyer',"store-manger","admin"],
-        default:"buyer"
+        enum:['Candidate',"Hiring Manager","Admin"],
+        default:"Candidate"
     },
     firstName:{
         type:String,
@@ -57,13 +57,12 @@ const usersSchme = mongoose.Schema({
     },
     contactNumber:{
         type:String,
-        validate:[validator.isMobliePhone,"Please provid a valid phone number"]
+        validate:[validator.isMobilePhone,"Please provid a valid phone number"]
     },
-    shoppingAddress:String,
-    imageURL:{
-        type:String,
-        validate:[validator.isURL,"Please provid your image"]
-    },
+    //     imageURL:{
+    //         type:String,
+    //         validate:[validator.isURL,"Please provid your image"]
+    //     },
     status:{
         type:String,
         enum:["active","in-active","blocked"],
@@ -74,9 +73,9 @@ const usersSchme = mongoose.Schema({
     passwordChangedAt:Date, 
     passwordResetToken:String,
     passwordResetExpires:Date,
-},{
-    timestamps:true
-})
+    },{
+        timestamps:true
+    })
 usersSchme.pre("save",function(next){
     const password = this.password;
     const hashedPassword = bcrypt.hashSync(password)

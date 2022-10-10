@@ -59,7 +59,7 @@ module.exports.login = async (req,res,next)=>{
             status:'passed',
             message:"You are a user now",
             Data:{
-                user:others
+                user:others,
                 token:userToken
             }
         })
