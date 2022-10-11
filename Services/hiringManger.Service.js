@@ -2,11 +2,11 @@ const Jobs = require('../Models/Jobs.Models')
 
 
 module.exports.allJobsOfTheManagerService = async (manager) =>{
-    const allJobs = Jobs.find({'manager.name':manager});
+    const allJobs = Jobs.find({'manager.id':manager});
     return allJobs;
 }
 module.exports.aJobsOfTheManagerService = async(id, manager)=>{
-    const job = Jobs.findOne({ _id: id, 'manager.name': manager });
+    const job = Jobs.findOne({ _id: id, 'manager.id': manager });
     return job;
 }
 module.exports.addAJobService = async (data)=>{

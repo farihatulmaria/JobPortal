@@ -31,8 +31,8 @@ const jobSchema = mongoose.Schema({
         id:{
             type:ObjectId,
             ref:"User",
-            role:"Hiring Manager"
         }
+        role:"Hiring Manager"
     },
     candiates:[{
         type:ObjectId,
