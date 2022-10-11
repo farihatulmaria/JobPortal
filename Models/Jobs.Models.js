@@ -25,13 +25,32 @@ const jobSchema = mongoose.Schema({
         type:String,
         required:[true,"Please the type of the job"]
     },
+    manager:{
+        name:String,
+        required:[true,"This is important"],
+        id:{
+            type:ObjectId,
+            ref:"User",
+            role:"Hiring Manager"
+        }
+    },
     candiates:[{
         type:ObjectId,
         ref:"Users"
     }],
+    appliedCandiates:{
+        type:Number,
+        min:[0,"This can't be negative"]
+    },
     status:{
         type:String,
-        enum:["active","in-active","blocked"],
+        enum:["active","in-active","discon"],
         default:"active"
     }
 },{timestamps:true,})
+
+
+
+const Jobs = mongoose.model('Jobs',jobSchema);
+
+module.exports = Jobs;
