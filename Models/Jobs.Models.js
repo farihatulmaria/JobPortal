@@ -7,7 +7,8 @@ const jobSchema = mongoose.Schema({
         type:String,
         required:[true,"Please give the job a name"]
         trim:true,
-        unique:true
+        unique:true,
+        maxLength:100
     }
     description:{
         type:String,
@@ -19,6 +20,15 @@ const jobSchema = mongoose.Schema({
         min:[0,"Worker should be paid for the hard work"],
         max:[2000,"The range is too high for the company"]
     },
+    location:String,
+    jobType:{
+        type:String,
+        required:[true,"Please the type of the job"]
+    },
+    candiates:[{
+        type:ObjectId,
+        ref:"Users"
+    }],
     status:{
         type:String,
         enum:["active","in-active","blocked"],
