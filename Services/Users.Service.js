@@ -4,7 +4,6 @@ module.exports.signUpService = async (userInfo)=>{
     const newUser = await Users.create(userInfo);
     return newUser;
 }
-
 module.exports.getUserByEmail = async (email)=> {
     const result = await Users.findOne({email:email})
     return result;

@@ -11,7 +11,7 @@ module.exports.verifyToken = async(req,res,next)=>{
             })
         }
         const decodedToken = await promisify(jwt.verify()(token,process.env.TOKEN));
-        // const user = User.findOne({ email: decoded.email })
+        const user = User.findOne({ email: decoded.email })
 
         req.user = decoded;
 

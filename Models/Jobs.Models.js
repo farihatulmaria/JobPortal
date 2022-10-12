@@ -31,16 +31,35 @@ const jobSchema = mongoose.Schema({
         id:{
             type:ObjectId,
             ref:"User",
-        }
+        },
         role:"Hiring Manager"
     },
     candiates:[{
-        type:ObjectId,
-        ref:"Users"
+        id:{
+            type:ObjectId,
+            ref:"Users"
+        },
+        pdfURL: {
+            type: String,
+            required: true,
+            validate: {
+              validator: (value) => {
+                let isValid = true;
+                value.forEach(url => {
+                  if(!validator.isURL(url)){
+                    isValid =  false;
+                  }
+                });
+                return isValid;
+              },
+              message: "Please provide valid pdf url"
+            }
+        }
     }],
     appliedCandiates:{
         type:Number,
-        min:[0,"This can't be negative"]
+        min:[0,"This can't be negative"];
+        default:0;
     },
     status:{
         type:String,

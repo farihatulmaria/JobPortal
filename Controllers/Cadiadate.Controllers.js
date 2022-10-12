@@ -1,4 +1,5 @@
-const { getAllJobsService, getAJobsService } = require("../Services/Cadiadate.Service");
+const { getAllJobsService, getAJobsService, applyToAJobService } = require("../Services/Cadiadate.Service");
+const { getUserByEmail } = require("../Services/Users.Service");
 
 module.exports.getAllJob = async (req, res, next) => {
     try { 
@@ -32,7 +33,6 @@ module.exports.getAllJob = async (req, res, next) => {
       });
     }
 };
-
 module.exports.getAJob = async (req, res, next) => {
     try { 
     const {id} = req.params
@@ -53,13 +53,25 @@ module.exports.getAJob = async (req, res, next) => {
 };
 module.exports.applyToAJob = async (req, res, next) => {
     try { 
-    const {id} = req.params;
-    const job = await applyToAJobService(id);
-  
+      const user = await getUserByEmail(req?.user?.email);
+      if(!user){
+        res.status(400).json({
+          status: "fail",
+          message: "Please create an account now",
+          error: err.message,
+        });
+      }
+      const {id}= req.params;
+      const resume = req.file;
+      const data={
+        id:user.ObjectId,
+        pdfURL: resume
+      }
+      const appliedForTheJob = await applyToAJobService(id,resume,data);
       res.status(200).json({
         status: "success",
         message: "got it",
-        data: job,
+        data: appliedForTheJob,
       });
     } catch (err) {
       res.status(400).json({

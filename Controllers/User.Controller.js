@@ -12,7 +12,7 @@ module.exports.signUp = async (req,res,next)=>{
         res.status(200).json({
             status:'passed',
             message:"you are now a user",
-            Data:result
+            Data:user
         })
     } catch (err) {
         res.status(400).json({
