@@ -27,12 +27,10 @@ const jobSchema = mongoose.Schema({
     },
     manager:{
         name:String,
-        required:[true,"This is important"],
         id:{
             type:ObjectId,
             ref:"User",
         },
-        role:"Hiring Manager"
     },
     candiates:[{
         id:{
@@ -54,8 +52,7 @@ const jobSchema = mongoose.Schema({
               },
               message: "Please provide valid pdf url"
             }
-        },
-        default:0
+        }
     }],
     appliedCandiates:{
         type:Number,
