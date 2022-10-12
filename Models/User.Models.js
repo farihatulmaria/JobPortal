@@ -16,13 +16,7 @@ const usersSchme = mongoose.Schema({
         type:String,
         required:[true,"Password is required"],
         validate:{
-            validator:(value)=>validator.isStrongPassword(value,{
-                minLength:6,
-                minLowercase:3,
-                minNumbers:2,
-                minUppercase:1,
-                minSymbols:1
-            }),
+            validator:(value)=>validator.isStrongPassword(value),
             message:"The password must be strong"
         }
     },
@@ -55,14 +49,6 @@ const usersSchme = mongoose.Schema({
         minLength:[3,"Name must be at least 3 characters"],
         maxLength:[100,"Name is too big for us to handle"]
     },
-    contactNumber:{
-        type:String,
-        validate:[validator.isMobilePhone,"Please provid a valid phone number"]
-    },
-    //     imageURL:{
-    //         type:String,
-    //         validate:[validator.isURL,"Please provid your image"]
-    //     },
     status:{
         type:String,
         enum:["active","in-active","blocked"],
@@ -76,11 +62,12 @@ const usersSchme = mongoose.Schema({
     },{
         timestamps:true
     })
+
 usersSchme.pre("save",function(next){
     const password = this.password;
     const hashedPassword = bcrypt.hashSync(password)
     this.password = hashedPassword;
-    this.confirmPassword = undefined
+    this.confirmPassword = undefined;
 })
 usersSchme.methods.comparePassword=function(password,hash){
     const isPasswordValid = bcrypt.compareSync(password,hash);

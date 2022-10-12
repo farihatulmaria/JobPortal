@@ -64,10 +64,10 @@ module.exports.applyToAJob = async (req, res, next) => {
       const {id}= req.params;
       const resume = req.file;
       const data={
-        id:user.ObjectId,
+        id:user._id,
         pdfURL: resume
       }
-      const appliedForTheJob = await applyToAJobService(id,resume,data);
+      const appliedForTheJob = await applyToAJobService(id,data);
       res.status(200).json({
         status: "success",
         message: "got it",

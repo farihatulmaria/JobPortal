@@ -1,11 +1,31 @@
 const bcrypt = require('bcryptjs');
+const Users = require('../Models/User.Models.js');
 const { signUpService, getUserByEmail } = require("../Services/Users.Service.js");
 const { generateToken } = require('../utils/token');
 
+module.exports.get= async(req,res)=>{
+    try {
+        const user = await Users.find();
+        res.status(200).json({
+            status:'passed',
+            message:"you are now a user",
+            Data:user
+        })
+    } catch (err) {
+        res.status(400).json({
+            status:'You shall not pass',
+            message:"you aren't a user now",
+            error:err.message
+        })
+    }
+}
 module.exports.signUp = async (req,res,next)=>{
     const userInfo = req.body;
+    console.log(userInfo);
     try {
         const user = await signUpService(userInfo);
+        console.log(user);
+        if(user){console.log(user);}
         const token = user.generateConfirmationToken();
         await user.save({ validateBeforeSave: false });
 
