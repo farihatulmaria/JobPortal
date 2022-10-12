@@ -5,15 +5,15 @@ const { ObjectId } = mongoose.Schema.Types;
 const jobSchema = mongoose.Schema({
     name:{
         type:String,
-        required:[true,"Please give the job a name"]
+        required:[true,"Please give the job a name"],
         trim:true,
         unique:true,
         maxLength:100
-    }
+    },
     description:{
         type:String,
         required:[true,"Please write something about the job"]
-    }
+    },
     salary:{
         type:Number,
         required:[true,"Please offer salary for the candidate for the job"],
@@ -54,12 +54,13 @@ const jobSchema = mongoose.Schema({
               },
               message: "Please provide valid pdf url"
             }
-        }
+        },
+        default:0
     }],
     appliedCandiates:{
         type:Number,
-        min:[0,"This can't be negative"];
-        default:0;
+        min:[0,"This can't be negative"],
+        default:0
     },
     status:{
         type:String,

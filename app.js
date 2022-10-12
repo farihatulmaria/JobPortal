@@ -3,6 +3,8 @@ const app = express();
 const cors = require("cors");
 const mongoose = require("mongoose");
 const userRouter = require("./Routes/User.Routes");
+const hiringRouter = require("./Routes/HiringManger.Routes");
+const candidateRouter = require("./Routes/Candidate.Routes");
 
 //middlewares
 app.use(express.json());
@@ -14,6 +16,8 @@ app.get("/", (req, res) => {
 });
 
 app.use('/user',userRouter)
+app.use('/hiring',hiringRouter)
+app.use('/candidate',candidateRouter)
 
 
 module.exports = app;
